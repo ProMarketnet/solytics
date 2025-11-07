@@ -1,0 +1,129 @@
+/* Minimal Solscan-green themed global styles */
+body {
+  background: #f9fafb;
+  font-family: 'Inter', sans-serif;
+  color: #262626;
+  margin: 0;
+}
+.container {
+  max-width: 950px;
+  margin: 32px auto;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px #e2e8f0;
+  padding: 24px 32px 32px 32px;
+}
+.h1 {
+  font-size: 2.1rem;
+  font-weight: 650;
+  color: #13bb6a;
+}
+.badge {
+  padding: 3px 11px;
+  border-radius: 11px;
+  background: #e0ffe7;
+  color: #13bb6a;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-left: 12px;
+}
+.card {
+  background: #fcfcfc;
+  border-radius: 11px;
+  box-shadow: 0 1.5px 7px #f0efef33;
+  padding: 18px 24px;
+  margin-bottom: 15px;
+}
+.grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.grid-3 > div {
+  flex: 1 1 32%;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.kpi {
+  padding: 13px 10px;
+  border-radius: 8px;
+  background: #eefcf5;
+  text-align: center;
+}
+.kpi .label {
+  font-size: 0.9em;
+  color: #9ca3af;
+}
+.kpi .value {
+  font-size: 1.17em;
+  font-weight: 700;
+  color: #13bb6a;
+}
+input, button, select {
+  border-radius: 6px;
+  border: 1.1px solid #dadada;
+  padding: 7px 11px;
+  margin-top: 4px;
+  font-size: 1rem;
+}
+input:focus, select:focus {
+  border-color: #13bb6a;
+  outline: none;
+}
+button {
+  background: #13bb6a;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  border: none;
+  margin-right: 10px;
+}
+button.secondary {
+  background: #f1f5f9;
+  color: #262626;
+  border: 1.1px solid #b9ebcc;
+}
+.progress-wrap {
+  height: 10px;
+  border-radius: 7px;
+  background: #e5e7eb;
+  margin-top: 11px;
+}
+.progress {
+  background: #13bb6a;
+  height: 100%;
+  border-radius: 7px;
+  transition: width 0.3s;
+}
+table.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table.table th, table.table td {
+  padding: 7px 9px;
+  border-bottom: 1px solid #e5e5e5;
+  text-align: left;
+  font-size: 0.97em;
+}
+table.table th {
+  background: #f5fff8;
+  color: #13bb6a;
+  font-weight: 650;
+}
+a.link {
+  color: #028a48;
+  text-decoration: underline;
+}
+.footer {
+  font-size: 0.92em;
+  color: #7f7f7f;
+  margin-top: 18px;
+}
+.subtle {
+  color: #8e8e8e;
+  font-size: 0.93em;
+  margin-top: 2px;
+}
