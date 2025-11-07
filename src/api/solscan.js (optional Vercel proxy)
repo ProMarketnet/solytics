@@ -1,0 +1,17 @@
+export default async function handler(req, res) {
+  try {
+    const PROXY_TARGET = 'https://pro-api.solscan.io';
+    const API_KEY = process.env.SOLSCAN_TOKEN; // set in Vercel env
+    const url = PROXY_TARGET + (req.query.path || req.url.replace(/^.*\/api\/solscan/, ''));
+    const r = await fetch(url, {
+      method: req.method,
+      headers: { accept: 'application/json', token: API_KEY, 'content-type': 'application/json' },
+      body: req.method !== 'GET' ? JSON.stringify(req.body || {}) : undefined
+    });
+    const text = await r.text();
+    res.setHeader('content-type', 'application/json');
+    res.status(r.status).send(text);
+  } catch (e) {
+    res.status(500).json({ error: String(e) });
+  }
+}
