@@ -1,0 +1,39 @@
+// Solscan Pro API helpers (client-side).
+// If you deploy with the Vercel proxy (api/solscan.js), set BASE to '/api/solscan'.
+const BASE = 'https://pro-api.solscan.io';
+const H = (apiKey) => ({ accept: 'application/json', token: apiKey });
+
+export async function getAccountDetail(address, apiKey) {
+  const url = `${BASE}/v2.0/account/detail?address=${address}`;
+  const r = await fetch(url, { headers: H(apiKey) });
+  if (!r.ok) throw new Error(`Solscan detail ${r.status}`);
+  return r.json(); // { success, data: {...} }
+}
+
+// Iterate transactions using v1.0 pagination (limit<=50, beforeHash)
+export async function* iterTransactions(address, apiKey, limit = 50, beforeHash = null) {
+  for (;;) {
+    const p = new URLSearchParams({ account: address, limit: String(limit) });
+    if (beforeHash) p.set('beforeHash', beforeHash);
+    const url = `${BASE}/v1.0/account/transactions?${p.toString()}`;
+    const r = await fetch(url, { headers: H(apiKey) });
+    if (!r.ok) throw new Error(`Solscan tx ${r.status}`);
+    const arr = await r.json();
+    if (!Array.isArray(arr) || arr.length === 0) return;
+    yield arr;
+    const last = arr[arr.length - 1];
+    beforeHash = last?.txHash || last?.txhash;
+  }
+}
+
+// Time-bounded activity (good for large ranges)
+export async function getBalanceChanges(address, apiKey, fromUnix, toUnix, page = 1, pageSize = 100) {
+  const qs = new URLSearchParams({
+    address, from_time: String(fromUnix), to_time: String(toUnix),
+    page: String(page), page_size: String(pageSize)
+  });
+  const url = `${BASE}/v2.0/account/balance_change?${qs}`;
+  const r = await fetch(url, { headers: H(apiKey) });
+  if (!r.ok) throw new Error(`Solscan balance_change ${r.status}`);
+  return r.json(); // { success, data: { total, list: [...] } }
+}
